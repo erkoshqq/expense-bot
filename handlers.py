@@ -7,7 +7,7 @@ from aiogram.types import Message
 
 import admin_settings
 import sheets
-from config import ADMIN_ID, USER_NAMES
+from config import ADMIN_IDS, USER_NAMES
 from keyboards import (
     main_menu, cancel_kb, settings_menu,
     delete_records_kb, months_kb,
@@ -21,7 +21,7 @@ router = Router()
 # ── Вспомогательные функции ──────────────────────────────────────────────────
 
 def is_admin(user_id: int) -> bool:
-    return user_id == ADMIN_ID
+    return user_id in ADMIN_IDS
 
 
 def get_user_name(user_id: int, fallback: str) -> str:
@@ -243,7 +243,7 @@ async def change_week_set(message: Message, state: FSMContext):
         if not 1 <= week <= 53:
             raise ValueError
     except ValueError:
-        await message.answer("⚠️ Введите число от 1 до 5:")
+        await message.answer("⚠️ Введите число от 1 до 53:")
         return
 
     admin_settings.set_week(week)

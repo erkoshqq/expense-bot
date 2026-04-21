@@ -9,8 +9,17 @@ import json
 # Токен Telegram-бота — задаётся через env var BOT_TOKEN
 BOT_TOKEN = os.getenv("BOT_TOKEN", "YOUR_TELEGRAM_BOT_TOKEN")
 
-# ID администратора — задаётся через env var ADMIN_ID
-ADMIN_ID = int(os.getenv("ADMIN_ID", "123456789"))
+# ID администраторов — можно указать несколько через запятую
+# Локально: просто добавьте нужные ID в список ниже
+# На Render: задайте env var ADMIN_IDS = "123456789,987654321"
+_admin_ids_str = os.getenv("ADMIN_IDS", "")
+if _admin_ids_str:
+    ADMIN_IDS = {int(x.strip()) for x in _admin_ids_str.split(",") if x.strip()}
+else:
+    ADMIN_IDS = {
+        123456789,   # Иван
+        # 987654321, # Раскомментируйте для второго админа
+    }
 
 # Словарь: Telegram user_id → имя пользователя
 # При деплое на Render задайте через env var USER_NAMES_JSON
