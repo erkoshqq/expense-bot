@@ -7,7 +7,7 @@ services:
     plan: free
     envVars:
       - key: BOT_TOKEN
-        sync: false          # Значение вводите вручную в Render Dashboard
+        sync: false
       - key: SPREADSHEET_ID
         sync: false
       - key: ADMIN_ID
